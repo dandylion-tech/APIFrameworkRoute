@@ -1,5 +1,6 @@
 <?php
 namespace Dandylion;
+http_response_code(404);
 $_POST = array_merge($_POST,json_decode(file_get_contents('php://input'),true)??[]);
 class Route {
     public static function route($path, $file_location){

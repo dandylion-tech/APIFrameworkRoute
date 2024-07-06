@@ -1,20 +1,21 @@
 <?php
 namespace Dandylion;
+$_POST = array_merge($_POST,json_decode(file_get_contents('php://input'),true)??[]);
 class Route {
-    public static function route(){
+    public static function route($path, $file_location){
         header("Content-Type: application/json");
         extract($GLOBALS);
-        if(is_string($method_list))$method_list = [$method_list];
         $url_check = preg_replace("/\/{[a-zA-Z0-9\-_]+}/","/([a-zA-Z0-9\-_]+)",$path);
         $path_info = pathinfo($_SERVER['REQUEST_URI']);
         $request_path = ($path_info["dirname"]=="/"?"/":$path_info["dirname"]."/").explode("?",$path_info["basename"])[0];
+        preg_match_all("/^".str_replace("/","\/",$url_check)."$/",$request_path,$value_list,PREG_SET_ORDER);
         if(preg_match_all("/^".str_replace("/","\/",$url_check)."$/",$request_path,$value_list,PREG_SET_ORDER)&&count($value_list)>0){
             $value_list = $value_list[0];
             array_shift($value_list);
             preg_match_all("/\/{([a-zA-Z0-9\-_]+)}/",$path,$key_list);
             $url_variables = array_combine($key_list[1],$value_list);
             $_GET = $url_variables;
-            include "api/".$file_location;
+            include $_SERVER["DOCUMENT_ROOT"]."/../api/".$file_location;
             $methods = ["get","post","put","delete","patch"];
             $method_list = [];
             foreach($methods as $method){

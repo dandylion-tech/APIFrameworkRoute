@@ -1,0 +1,14 @@
+{
+	"name": "dandylion/dandylion/api-framework-route",
+	"type": "framework",
+	"description": "Route API Framework",
+	"license": "MIT",
+    "require": {
+        "php": "^8.0"
+    },
+	"autoload": {
+		"psr-4": {
+			"Dandylion\\": "src/"
+		}
+	}
+}

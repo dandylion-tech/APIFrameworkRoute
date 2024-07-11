@@ -15,7 +15,7 @@ class Route {
             array_shift($value_list);
             preg_match_all("/\/{([a-zA-Z0-9\-_]+)}/",$path,$key_list);
             $url_variables = array_combine($key_list[1],$value_list);
-            $_GET = $url_variables;
+            $_GET = array_merge($_GET,$url_variables);
             include $_SERVER["DOCUMENT_ROOT"]."/../api/".$file_location;
             $methods = ["get","post","put","delete","patch"];
             $method_list = [];

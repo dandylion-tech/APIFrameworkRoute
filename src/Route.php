@@ -8,7 +8,7 @@ class Route {
         extract($GLOBALS);
         $url_check = preg_replace("/\/{[a-zA-Z0-9\-_]+}/","/([a-zA-Z0-9\-_]+)",$path);
         $path_info = pathinfo($_SERVER['REQUEST_URI']);
-        $request_path = ($path_info["dirname"]=="/"?"/":$path_info["dirname"]."/").explode("?",$path_info["basename"])[0];
+        $request_path = ($path_info["dirname"]=="/"||$path_info["dirname"]=="\\"?"/":$path_info["dirname"]."/").explode("?",$path_info["basename"])[0];
         preg_match_all("/^".str_replace("/","\/",$url_check)."$/",$request_path,$value_list,PREG_SET_ORDER);
         if(preg_match_all("/^".str_replace("/","\/",$url_check)."$/",$request_path,$value_list,PREG_SET_ORDER)&&count($value_list)>0){
             $value_list = $value_list[0];

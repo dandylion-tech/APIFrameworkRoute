@@ -31,8 +31,8 @@ class Route {
                 default:
                     $method = $_SERVER["REQUEST_METHOD"];
                     if(function_exists($method)){
-                        echo json_encode($method());
                         http_response_code(200);
+                        echo json_encode($method());
                     } else {
                         http_response_code(405);
                     }

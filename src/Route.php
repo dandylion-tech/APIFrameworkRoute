@@ -24,6 +24,7 @@ class Route {
             }
             $method_list[] = "OPTIONS";
             header("Allow: ".implode(", ",$method_list));
+            header("Access-Control-Allow-Methods: ".implode(", ",$method_list));
             switch($_SERVER["REQUEST_METHOD"]){
                 case "OPTIONS":
                     http_response_code(204);
